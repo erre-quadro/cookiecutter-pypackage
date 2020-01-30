@@ -154,11 +154,3 @@ def dist(c):
     """
     c.run("python setup.py sdist")
     c.run("python setup.py bdist_wheel")
-
-
-@task(pre=[clean, dist])
-def release(c):
-    """
-    Make a release of the python package to pypi
-    """
-    c.run("twine upload dist/*")

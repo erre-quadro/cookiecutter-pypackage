@@ -5,16 +5,13 @@ name = "pypi"
 
 [dev-packages]
 invoke = "*"
-bumpversion = "*"
+bump2version = "*"
 coverage = "*"
 wheel = "*"
 sphinx = "*"
-twine = "*"
-tox = "*"
 "flake8" = "*"
 pylint = "*"
-{% if cookiecutter.use_pytest == 'y' -%}
-pytest = "*"{% endif %}
+pytest = "*"
 isort = "*"
 yapf = "*"
 

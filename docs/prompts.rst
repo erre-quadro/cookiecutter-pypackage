@@ -37,19 +37,3 @@ year
 
 version
     The starting version number of the package.
-
-Options
--------
-
-The following package configuration options set up different features for your project.
-
-use_pypi_deployment_with_travis
-    Whether to use PyPI deployment with Travis.
-
-command_line_interface
-    Whether to create a console script using Click. Console script entry point will match the project_slug. Options: ['Click', "No command-line interface"]
-
-use_google_docstrings
-    Whether to support parsing docstrings in the `Google Python Style Guide`_ format.
-
-.. _Google Python Style Guide: https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings
