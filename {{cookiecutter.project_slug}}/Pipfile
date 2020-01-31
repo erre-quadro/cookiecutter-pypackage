@@ -4,16 +4,22 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
-invoke = "*"
+"flake8" = "*"
+autoflake = "*"
+black = "*"
 bump2version = "*"
 coverage = "*"
-wheel = "*"
-sphinx = "*"
-"flake8" = "*"
+invoke = "*"
+isort = "*"
 pylint = "*"
 pytest = "*"
-isort = "*"
+sphinx = "*"
+vulture = "*"
+wheel = "*"
 yapf = "*"
 
 [packages]
 {{cookiecutter.project_slug}} = {path = ".", editable = true}
+
+[pipenv]
+allow_prereleases = true

@@ -4,17 +4,25 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
-invoke = "*"
-pytest = "*"
-tox = "*"
+"flake8" = "*"
+autoflake = "*"
+black = "*"
+bump2version = "*"
 cookiecutter = "*"
-pytest-cookies = "*"
-sphinx = "*"
-pyyaml = "*"
 invocations = "*"
+invoke = "*"
+isort = "*"
+pylint = "*"
+pytest = "*"
+pytest-cookies = "*"
+pyyaml = "*"
+sphinx = "*"
 sphinx-rtd-theme = "*"
+tox = "*"
+vulture = "*"
+yapf = "*"
 
 [packages]
 
-[requires]
-python_version = "3.7"
+[pipenv]
+allow_prereleases = true

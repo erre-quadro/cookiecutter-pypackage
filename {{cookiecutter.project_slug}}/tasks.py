@@ -46,13 +46,41 @@ def format(c, check=False):
     Format code
     """
     python_dirs_string = " ".join(PYTHON_DIRS)
+
+    # Run autoflake
+    autoflake_options = [
+        "--check" if check else "--in-place",
+        "--ignore-init-module-imports",
+        "--recursive",
+        "--remove-all-unused-imports",
+    ] 
+    c.run("autoflake {} {}".format(" ".join(autoflake_options), python_dirs_string))
+    
     # Run yapf
     yapf_options = '--recursive {}'.format('--diff' if check else '--in-place')
     c.run("yapf {} {}".format(yapf_options, python_dirs_string))
+    
     # Run isort
-    isort_options = '--recursive {}'.format(
-        '--check-only' if check else '')
-    c.run("isort {} {}".format(isort_options, python_dirs_string))
+    isort_options = [
+        '--check-only' if check else '',
+        "--apply",
+        "--combine-as",
+        "--force-grid-wrap=0",
+        "--line-width 88", # PEP 8 says 79, black 88. We black.
+        "--multi-line=3",
+        "--recursive",
+        "--trailing-comma",
+    ]
+    c.run("isort {} {}".format(" ".join(isort_options), python_dirs_string))
+
+    # Run black
+    c.run("black {} {}".format("--check" if check else "", python_dirs_string))
+
+    # Run vulture
+    vulture_options = [
+        "--min-confidence 70"
+    ]
+    c.run("vulture {} {}".format(" ".join(vulture_options), python_dirs_string))
 
 
 @task

@@ -95,3 +95,9 @@ target/
 # Cookiecutter
 output/
 python_boilerplate/
+
+# vscode
+.vscode/
+
+# sonarlint
+.sonarlint/
