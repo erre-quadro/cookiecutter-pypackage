@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import os
 
 PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
@@ -10,7 +9,11 @@ def remove_file(filepath):
 
 if __name__ == "__main__":
 
-    remove_file("tests/__init__.py")
-
-    if "Not open source" == "{{ cookiecutter.open_source_license }}":
+    if "{{ cookiecutter.select_license }}" == "Not open source":
         remove_file("LICENSE")
+
+    if "{{ cookiecutter.select_appveyor_ci }}" == "n":
+        remove_file("appveyor.yml")
+
+    if "{{ cookiecutter.select_travis_ci }}" == "n":
+        remove_file(".travis.yml")

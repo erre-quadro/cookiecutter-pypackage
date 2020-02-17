@@ -51,13 +51,6 @@ def check_output_inside_dir(command, dirpath):
         return subprocess.check_output(shlex.split(command))
 
 
-def test_year_compute_in_license_file(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        license_file_path = result.project.join("LICENSE")
-        now = datetime.datetime.now()
-        assert str(now.year) in license_file_path.read()
-
-
 def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
     project_path = str(result.project)
@@ -86,7 +79,7 @@ def test_bake_and_run_tests(cookies):
         print("test_bake_and_run_tests path", str(result.project))
 
 
-def test_bake_withspecialchars_and_run_tests(cookies):
+def test_bake_with_specialchars_and_run_tests(cookies):
     """Ensure that a `full_name` with double quotes does not break setup.py"""
     with bake_in_temp_dir(
         cookies, extra_context={"full_name": 'name "quote" name'}
@@ -104,15 +97,11 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
 
 def test_bake_selecting_license(cookies):
     license_strings = {
-        "MIT license": "MIT ",
-        "BSD license": "Redistributions of source code must retain the above copyright notice, this",
-        "ISC license": "ISC License",
         "Apache Software License 2.0": "Licensed under the Apache License, Version 2.0",
-        "GNU General Public License v3": "GNU GENERAL PUBLIC LICENSE",
     }
     for license, target_string in license_strings.items():
         with bake_in_temp_dir(
-            cookies, extra_context={"open_source_license": license}
+            cookies, extra_context={"select_license": license}
         ) as result:
             assert target_string in result.project.join("LICENSE").read()
             assert license in result.project.join("setup.py").read()
@@ -120,7 +109,7 @@ def test_bake_selecting_license(cookies):
 
 def test_bake_not_open_source(cookies):
     with bake_in_temp_dir(
-        cookies, extra_context={"open_source_license": "Not open source"}
+        cookies, extra_context={"select_license": "Not open source"}
     ) as result:
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert "setup.py" in found_toplevel_files
@@ -154,17 +143,17 @@ def test_using_google_docstrings(cookies):
         assert "sphinxcontrib.napoleon" in "".join(lines)
 
 
-# def test_project_with_hyphen_in_module_name(cookies):
-#     result = cookies.bake(extra_context={'project_name': 'something-with-a-dash'})
-#     assert result.project is not None
-#     project_path = str(result.project)
-#
-#     # when:
-#     travis_setup_cmd = ('python travis_pypi_setup.py'
-#                         ' --repo audreyr/cookiecutter-pypackage --password invalidpass')
-#     run_inside_dir(travis_setup_cmd, project_path)
-#
-#     # then:
-#     result_travis_config = yaml.load(open(os.path.join(project_path, ".travis.yml")))
-#     assert "secure" in result_travis_config["deploy"]["password"],\
-#         "missing password config in .travis.yml"
+def test_using_travis_ci(cookies):
+    test_options = {"y": lambda x, y: x in y, "n": lambda x, y: x not in y}
+    for answer, eval_func in test_options.items():
+        with bake_in_temp_dir(cookies, extra_context={"select_travis_ci": answer}) as result:
+            found_toplevel_files = [f.basename for f in result.project.listdir()]
+            assert eval_func(".travis.yml", found_toplevel_files)
+
+
+def test_using_appveyor_ci(cookies):
+    test_options = {"y": lambda x, y: x in y, "n": lambda x, y: x not in y}
+    for answer, eval_func in test_options.items():
+        with bake_in_temp_dir(cookies, extra_context={"select_appveyor_ci": answer}) as result:
+            found_toplevel_files = [f.basename for f in result.project.listdir()]
+            assert eval_func("appveyor.yml", found_toplevel_files)
