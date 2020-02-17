@@ -1,4 +1,3 @@
-import datetime
 import os
 import shlex
 import subprocess
@@ -146,7 +145,9 @@ def test_using_google_docstrings(cookies):
 def test_using_travis_ci(cookies):
     test_options = {"y": lambda x, y: x in y, "n": lambda x, y: x not in y}
     for answer, eval_func in test_options.items():
-        with bake_in_temp_dir(cookies, extra_context={"select_travis_ci": answer}) as result:
+        with bake_in_temp_dir(
+            cookies, extra_context={"select_travis_ci": answer}
+        ) as result:
             found_toplevel_files = [f.basename for f in result.project.listdir()]
             assert eval_func(".travis.yml", found_toplevel_files)
 
@@ -154,6 +155,8 @@ def test_using_travis_ci(cookies):
 def test_using_appveyor_ci(cookies):
     test_options = {"y": lambda x, y: x in y, "n": lambda x, y: x not in y}
     for answer, eval_func in test_options.items():
-        with bake_in_temp_dir(cookies, extra_context={"select_appveyor_ci": answer}) as result:
+        with bake_in_temp_dir(
+            cookies, extra_context={"select_appveyor_ci": answer}
+        ) as result:
             found_toplevel_files = [f.basename for f in result.project.listdir()]
             assert eval_func("appveyor.yml", found_toplevel_files)
