@@ -11,6 +11,7 @@ setup(
     author_email='paolo.arduin@errequadrosrl.com',
     url='https://github.com/erre-quadro/cookiecutter-pypackage',
     keywords=['cookiecutter', 'template', 'package', ],
+    python_requires='>=3.5',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',

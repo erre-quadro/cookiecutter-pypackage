@@ -2,12 +2,7 @@
 
 import webbrowser
 import platform
-try:
-    from pathlib import Path
-    Path().expanduser()
-except (ImportError, AttributeError):
-    from pathlib2 import Path
-
+from pathlib import Path
 from invoke import task
 
 ROOT_DIR = Path(__file__).parent
