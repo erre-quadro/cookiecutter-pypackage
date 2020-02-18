@@ -4,7 +4,6 @@ import subprocess
 from contextlib import contextmanager
 
 from cookiecutter.utils import rmtree
-import yaml
 
 
 @contextmanager
@@ -82,21 +81,19 @@ def test_bake_and_run_tests(cookies):
 def test_bake_with_specialchars_and_run_tests(cookies):
     """Ensure that a `full_name` with double quotes does not break setup.py"""
     with bake_in_temp_dir(
-        cookies,
-        extra_context={'full_name': 'name "quote" name'}
+        cookies, extra_context={"full_name": 'name "quote" name'}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir(['python setup.py test'], str(result.project)) == 0
+        run_inside_dir(["python setup.py test"], str(result.project)) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
     """Ensure that a `full_name` with apostrophes does not break setup.py"""
     with bake_in_temp_dir(
-        cookies,
-        extra_context={'full_name': "O'connor"}
+        cookies, extra_context={"full_name": "O'connor"}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir(['python setup.py test'], str(result.project)) == 0
+        run_inside_dir(["python setup.py test"], str(result.project)) == 0
 
 
 def test_bake_selecting_license(cookies):
@@ -129,7 +126,9 @@ def test_using_pytest(cookies):
         lines = pipfile_file_path.readlines()
         assert 'pytest = "*"\n' in lines
         # Test contents of test file
-        test_file_path = result.project.join("tests/test_python_boilerplate.py")
+        test_file_path = result.project.join(
+            "tests/test_python_boilerplate.py"
+        )
         lines = test_file_path.readlines()
         assert "import pytest" in "".join(lines)
         # Test the new pytest target
@@ -153,7 +152,9 @@ def test_using_travis_ci(cookies):
         with bake_in_temp_dir(
             cookies, extra_context={"select_travis_ci": answer}
         ) as result:
-            found_toplevel_files = [f.basename for f in result.project.listdir()]
+            found_toplevel_files = [
+                f.basename for f in result.project.listdir()
+            ]
             assert eval_func(".travis.yml", found_toplevel_files)
 
 
@@ -163,5 +164,7 @@ def test_using_appveyor_ci(cookies):
         with bake_in_temp_dir(
             cookies, extra_context={"select_appveyor_ci": answer}
         ) as result:
-            found_toplevel_files = [f.basename for f in result.project.listdir()]
+            found_toplevel_files = [
+                f.basename for f in result.project.listdir()
+            ]
             assert eval_func("appveyor.yml", found_toplevel_files)
