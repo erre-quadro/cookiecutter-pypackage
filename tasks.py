@@ -1,6 +1,5 @@
 """Development tasks for the cookiecutter template project"""
 
-import webbrowser
 import platform
 from pathlib import Path
 from invoke import task
@@ -86,7 +85,6 @@ def docs(c):
     Generate documentation
     """
     c.run("sphinx-build -b html {} {}".format(DOCS_DIR, DOCS_BUILD_DIR))
-    webbrowser.open(DOCS_INDEX.absolute().as_uri())
 
 
 @task
