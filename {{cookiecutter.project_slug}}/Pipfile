@@ -7,7 +7,7 @@ name = "pypi"
 "flake8" = "*"
 alabaster = "*"
 autoflake = "*"
-black = "*"
+black = "==20.8b1"
 bump2version = "*"
 coverage = "*"
 invoke = "*"
@@ -20,7 +20,9 @@ wheel = "*"
 yapf = "*"
 
 [packages]
-{{cookiecutter.project_slug}} = {path = ".", editable = true}
+typer = "*"
+wasabi = "*"
+
 
 [pipenv]
 allow_prereleases = true
