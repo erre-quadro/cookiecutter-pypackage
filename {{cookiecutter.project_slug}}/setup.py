@@ -4,7 +4,7 @@ from {{ cookiecutter.project_slug }} import _about
 with open("README.rst") as readme_file:
     readme = readme_file.read()
 
-requirements = []
+requirements = open("requirements.txt").read().splitlines()
 
 setup_requirements = ["pytest-runner"]
 

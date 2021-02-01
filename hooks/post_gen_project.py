@@ -9,11 +9,8 @@ def remove_file(filepath):
 
 if __name__ == "__main__":
 
-    if "{{ cookiecutter.select_license }}" == "Not open source":
+    if "{{ cookiecutter.select_license }}" == "None":
         remove_file("LICENSE")
 
-    if "{{ cookiecutter.select_appveyor_ci }}" == "n":
-        remove_file("appveyor.yml")
-
-    if "{{ cookiecutter.select_travis_ci }}" == "n":
-        remove_file(".travis.yml")
+    if "{{ cookiecutter.include_azure_ci }}" == "n":
+        remove_file("azure-pipelines.yml")

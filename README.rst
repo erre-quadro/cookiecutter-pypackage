@@ -74,12 +74,9 @@ For more details, see the `cookiecutter-pypackage tutorial`_.
 .. _pylint: https://www.pylint.org/
 .. _pipenv: https://pipenv.readthedocs.io/en/latest/
 .. _original_pypackage: https://github.com/briggySmalls/cookiecutter-pypackage/
-.. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
 .. _Sphinx: http://sphinx-doc.org/
 .. _Read the Docs: https://readthedocs.io/
-.. _`pyup.io`: https://pyup.io/
 .. _bump2version: https://github.com/c4urself/bump2version
 .. _Punch: https://github.com/lgiordani/punch
-.. _Pipenv: https://pipenv.readthedocs.io/en/latest/
 .. _PyPi: https://pypi.python.org/pypi

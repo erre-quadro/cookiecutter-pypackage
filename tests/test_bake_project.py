@@ -68,7 +68,6 @@ def test_bake_with_defaults(cookies):
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert "setup.py" in found_toplevel_files
         assert "python_boilerplate" in found_toplevel_files
-        assert "tox.ini" in found_toplevel_files
         assert "tests" in found_toplevel_files
 
 
@@ -110,7 +109,7 @@ def test_bake_selecting_license(cookies):
 
 def test_bake_not_open_source(cookies):
     with bake_in_temp_dir(
-        cookies, extra_context={"select_license": "Not open source"}
+        cookies, extra_context={"select_license": "None"}
     ) as result:
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert "setup.py" in found_toplevel_files
@@ -121,10 +120,6 @@ def test_bake_not_open_source(cookies):
 def test_using_pytest(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        # Test Pipfile installs pytest
-        pipfile_file_path = result.project.join("Pipfile")
-        lines = pipfile_file_path.readlines()
-        assert 'pytest = "*"\n' in lines
         # Test contents of test file
         test_file_path = result.project.join(
             "tests/test_python_boilerplate.py"
@@ -137,34 +132,13 @@ def test_using_pytest(cookies):
         run_inside_dir(["python setup.py test"], str(result.project)) == 0
 
 
-def test_using_google_docstrings(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        # Test docs include sphinx extension
-        docs_conf_file_path = result.project.join("docs/conf.py")
-        lines = docs_conf_file_path.readlines()
-        assert "sphinx.ext.napoleon" in "".join(lines)
-
-
-def test_using_travis_ci(cookies):
+def test_using_azure_ci(cookies):
     test_options = {"y": lambda x, y: x in y, "n": lambda x, y: x not in y}
     for answer, eval_func in test_options.items():
         with bake_in_temp_dir(
-            cookies, extra_context={"select_travis_ci": answer}
+            cookies, extra_context={"include_azure_ci": answer}
         ) as result:
             found_toplevel_files = [
                 f.basename for f in result.project.listdir()
             ]
-            assert eval_func(".travis.yml", found_toplevel_files)
-
-
-def test_using_appveyor_ci(cookies):
-    test_options = {"y": lambda x, y: x in y, "n": lambda x, y: x not in y}
-    for answer, eval_func in test_options.items():
-        with bake_in_temp_dir(
-            cookies, extra_context={"select_appveyor_ci": answer}
-        ) as result:
-            found_toplevel_files = [
-                f.basename for f in result.project.listdir()
-            ]
-            assert eval_func("appveyor.yml", found_toplevel_files)
+            assert eval_func("azure-pipelines.yml", found_toplevel_files)

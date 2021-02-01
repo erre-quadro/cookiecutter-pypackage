@@ -1,0 +1,13 @@
+flake8
+alabaster
+autoflake
+black
+bump2version
+invoke
+isort
+pylint
+pytest
+sphinx
+vulture
+wheel
+yapf

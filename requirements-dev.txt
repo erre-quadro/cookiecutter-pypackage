@@ -1,0 +1,16 @@
+flake8
+alabaster
+autoflake
+black
+bump2version
+cookiecutter
+invocations
+invoke
+isort
+pylint
+pytest
+pytest-cookies
+pyyaml
+sphinx
+vulture
+yapf

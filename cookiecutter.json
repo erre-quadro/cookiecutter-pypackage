@@ -1,12 +1,11 @@
 {
-  "email": "paolo.arduin@errequadrosrl.com",
-  "full_name": "Paolo Arduin",
-  "github_username": "paoloq",
+  "email": "",
+  "full_name": "",
+  "github_username": "",
   "project_name": "Python Boilerplate",
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-  "select_appveyor_ci": "y",
-  "select_license": ["Apache Software License 2.0", "Not open source"],
-  "select_travis_ci": "y",
+  "select_license": ["Apache Software License 2.0", "None"],
+  "include_azure_ci": "y",
   "version": "0.1.0"
 }
