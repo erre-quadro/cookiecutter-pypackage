@@ -33,35 +33,34 @@ jobs:
       Python35Linux:
         imageName: 'ubuntu-16.04'
         python.version: '3.5'
-        os: linux
       Python35Windows:
         imageName: 'vs2017-win2016'
         python.version: '3.5'
       Python35Mac:
-       imageName: 'macos-10.14'
-       python.version: '3.5'
+        imageName: 'macos-10.14'
+        python.version: '3.5'
       Python36Linux:
         imageName: 'ubuntu-16.04'
         python.version: '3.6'
-     Python36Windows:
-       imageName: 'vs2017-win2016'
-       python.version: '3.6'
-     Python36Mac:
-       imageName: 'macos-10.14'
-       python.version: '3.6'
-     Python37Linux:
-       imageName: 'ubuntu-16.04'
-       python.version: '3.7'
+      Python36Windows:
+        imageName: 'vs2017-win2016'
+        python.version: '3.6'
+      Python36Mac:
+        imageName: 'macos-10.14'
+        python.version: '3.6'
+      Python37Linux:
+        imageName: 'ubuntu-16.04'
+        python.version: '3.7'
       Python37Windows:
         imageName: 'vs2017-win2016'
         python.version: '3.7'
-     Python37Mac:
-       imageName: 'macos-10.14'
-       python.version: '3.7'
-     Python38Linux:
-       imageName: 'ubuntu-16.04'
-       python.version: '3.8'
-     Python38Windows:
+      Python37Mac:
+        imageName: 'macos-10.14'
+        python.version: '3.7'
+      Python38Linux:
+        imageName: 'ubuntu-16.04'
+        python.version: '3.8'
+      Python38Windows:
        imageName: 'vs2017-win2016'
        python.version: '3.8'
       Python38Mac:
@@ -96,4 +95,4 @@ jobs:
     displayName: 'Build docs'
 
   - script: invoke clean_docs
-      displayName: 'Clean docs'
+    displayName: 'Clean docs'
