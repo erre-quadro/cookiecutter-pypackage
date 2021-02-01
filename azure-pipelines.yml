@@ -87,7 +87,9 @@ jobs:
   - script: python -m pip install -U pip setuptools
     displayName: 'Update pip'
 
-  - script: invoke test
+  - script: |
+      pip install -r requirements-dev.txt
+      invoke test
     displayName: 'Run tests'
 
   - script: invoke docs
