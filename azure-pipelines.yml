@@ -29,15 +29,6 @@ jobs:
 - job: 'Test'
   strategy:
     matrix:
-      Python35Linux:
-        imageName: 'ubuntu-16.04'
-        python.version: '3.5'
-      Python35Windows:
-        imageName: 'vs2017-win2016'
-        python.version: '3.5'
-      Python35Mac:
-        imageName: 'macos-10.14'
-        python.version: '3.5'
       Python36Linux:
         imageName: 'ubuntu-16.04'
         python.version: '3.6'
@@ -95,5 +86,5 @@ jobs:
   - script: invoke docs
     displayName: 'Build docs'
 
-  - script: invoke clean_docs
+  - script: invoke clean-docs
     displayName: 'Clean docs'
