@@ -27,7 +27,6 @@ jobs:
     displayName: 'lint'
 
 - job: 'Test'
-  dependsOn: 'Validate'
   strategy:
     matrix:
       Python35Linux:

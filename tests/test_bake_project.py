@@ -96,15 +96,13 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
 
 
 def test_bake_selecting_license(cookies):
-    license_strings = {
-        "Apache Software License 2.0": "Licensed under the Apache License, Version 2.0",
-    }
-    for license, target_string in license_strings.items():
-        with bake_in_temp_dir(
-            cookies, extra_context={"select_license": license}
-        ) as result:
-            assert target_string in result.project.join("LICENSE").read()
-            assert license in result.project.join("setup.py").read()
+    license = "Apache Software License 2.0"
+    target = "Licensed under the Apache License, Version 2.0"
+    with bake_in_temp_dir(
+        cookies, extra_context={"select_license": license}
+    ) as result:
+        assert target in result.project.join("LICENSE").read()
+        assert license in result.project.join("setup.py").read()
 
 
 def test_bake_not_open_source(cookies):
