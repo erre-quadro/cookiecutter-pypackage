@@ -86,7 +86,7 @@ jobs:
     displayName: 'Run tests'
 
   - script: invoke docs
-      displayName: 'Build docs'
+    displayName: 'Build docs'
 
   - script: invoke clean
-      displayName: 'Clean'
+    displayName: 'Clean'
