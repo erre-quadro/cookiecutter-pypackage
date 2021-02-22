@@ -28,7 +28,9 @@ Temporary Items
 .apdisk
 
 # C extensions
+*.c
 *.so
+*.cpp
 
 # Distribution / packaging
 .Python
@@ -105,8 +107,6 @@ target/
 output/
 python_boilerplate/
 
-# vscode
+# Others
 .vscode/
-
-# sonarlint
 .sonarlint/

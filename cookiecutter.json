@@ -6,6 +6,7 @@
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "select_license": ["Apache Software License 2.0", "None"],
-  "include_azure_ci": "y",
+  "use_azure_ci": "n",
+  "use_cython": "n",
   "version": "0.1.0"
 }

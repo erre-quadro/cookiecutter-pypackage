@@ -11,3 +11,6 @@ sphinx
 vulture
 wheel
 yapf
+{% if cookiecutter.use_cython == 'y' %}
+cython
+{% endif %}

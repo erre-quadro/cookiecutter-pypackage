@@ -74,7 +74,7 @@ def test_bake_with_defaults(cookies):
 def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        run_inside_dir(["python setup.py test"], str(result.project)) == 0
+        run_inside_dir(["pytest"], str(result.project)) == 0
 
 
 def test_bake_with_specialchars_and_run_tests(cookies):
@@ -83,7 +83,7 @@ def test_bake_with_specialchars_and_run_tests(cookies):
         cookies, extra_context={"full_name": 'name "quote" name'}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir(["python setup.py test"], str(result.project)) == 0
+        run_inside_dir(["pytest"], str(result.project)) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
@@ -92,7 +92,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
         cookies, extra_context={"full_name": "O'connor"}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir(["python setup.py test"], str(result.project)) == 0
+        run_inside_dir(["pytest"], str(result.project)) == 0
 
 
 def test_bake_selecting_license(cookies):
@@ -124,19 +124,31 @@ def test_using_pytest(cookies):
         )
         lines = test_file_path.readlines()
         assert "import pytest" in "".join(lines)
-        # Test the new pytest target
-        run_inside_dir(["python setup.py pytest"], str(result.project)) == 0
         # Test the test alias (which invokes pytest)
-        run_inside_dir(["python setup.py test"], str(result.project)) == 0
+        run_inside_dir(["pytest"], str(result.project)) == 0
 
 
 def test_using_azure_ci(cookies):
     test_options = {"y": lambda x, y: x in y, "n": lambda x, y: x not in y}
     for answer, eval_func in test_options.items():
         with bake_in_temp_dir(
-            cookies, extra_context={"include_azure_ci": answer}
+            cookies, extra_context={"use_azure_ci": answer}
         ) as result:
             found_toplevel_files = [
                 f.basename for f in result.project.listdir()
             ]
             assert eval_func("azure-pipelines.yml", found_toplevel_files)
+
+
+def test_using_cython(cookies):
+    with bake_in_temp_dir(
+        cookies, extra_context={"use_cython": "y"}
+    ) as result:
+        assert (
+            "cython"
+            in result.project.join("requirements-dev.txt").read().splitlines()
+        )
+        assert (
+            "from Cython.Build import cythonize"
+            in result.project.join("setup.py").read().splitlines()
+        )

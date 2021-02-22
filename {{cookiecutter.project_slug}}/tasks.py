@@ -103,12 +103,21 @@ def lint(c):
 
 
 @task
+def build(c):
+    """
+    Build cythonizing
+    """
+    pty = platform.system() == 'Linux'
+    c.run("python {} build_ext --inplace".format(SETUP_FILE), pty=pty)
+
+
+@task
 def test(c):
     """
     Run tests
     """
     pty = platform.system() == 'Linux'
-    c.run("python {} test".format(SETUP_FILE), pty=pty)
+    c.run("pytest", pty=pty)
 
 
 @task(help={'publish': "Publish the result via coveralls"})
@@ -152,6 +161,9 @@ def clean_build(c):
     c.run("rm -fr .eggs/")
     c.run("find . -name '*.egg-info' -exec rm -fr {} +")
     c.run("find . -name '*.egg' -exec rm -f {} +")
+    c.run(" ".join([f"find {SOURCE_DIR} - name '*.c'", "-exec rm -f {} +"]))
+    c.run(" ".join([f"find {SOURCE_DIR} - name '*.cpp'", "-exec rm -f {} +"]))
+    c.run(" ".join([f"find {SOURCE_DIR} - name '*.so'", "-exec rm -f {} +"]))
 
 
 @task

@@ -12,5 +12,5 @@ if __name__ == "__main__":
     if "{{ cookiecutter.select_license }}" == "None":
         remove_file("LICENSE")
 
-    if "{{ cookiecutter.include_azure_ci }}" == "n":
+    if "{{ cookiecutter.use_azure_ci }}" == "n":
         remove_file("azure-pipelines.yml")
